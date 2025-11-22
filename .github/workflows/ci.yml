@@ -25,11 +25,6 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
-      - name: Copy requirements into each service
-        run: |
-          cp requirements.txt currency_report/
-          cp requirements.txt currency_history/
-
       - name: Run tests (currency_report)
         run: |
           export PYTHONPATH="$PYTHONPATH:$(pwd)/currency_report"
