@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-      uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -26,15 +26,15 @@ jobs:
           pip install pytest
 
       - name: Add project root to PYTHONPATH
-        run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
       - name: Run tests - currency_report
         working-directory: currency_report
-        run: pytest -q
+        run: pytest
 
       - name: Run tests - currency_history
         working-directory: currency_history
-        run: pytest -q
+        run: pytest
 
       - name: Build Docker image - currency_report
         working-directory: currency_report
