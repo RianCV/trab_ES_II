@@ -1,4 +1,4 @@
-from app import app
+from currency_report import app
 
 
 def test_health():
