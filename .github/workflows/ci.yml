@@ -27,12 +27,14 @@ jobs:
 
       - name: Run tests (currency_report)
         run: |
+          export PYTHONPATH="$PYTHONPATH:$(pwd)/currency_report"
           cd currency_report
           pytest
           cd ..
 
       - name: Run tests (currency_history)
         run: |
+          export PYTHONPATH="$PYTHONPATH:$(pwd)/currency_history"
           cd currency_history
           pytest
 
