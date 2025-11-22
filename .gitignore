@@ -1,0 +1,5 @@
+# Ignorar arquivos do macOS
+.DS_Store
+
+# Ignorar pastas do Mac
+**/.DS_Store
