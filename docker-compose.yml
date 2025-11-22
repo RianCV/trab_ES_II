@@ -1,25 +1,25 @@
 version: '3.8'
 services:
   currency-report:
-    build: ./currency-report
-    container_name: currency-report
+    build: ./currency_report
+    container_name: currency_report
     networks:
       - micronet
     ports:
       - "8100:8100"
     environment:
-      - SERVICE_NAME=currency-report
+      - SERVICE_NAME=currency_report
 
 
   currency-history:
-    build: ./currency-history
-    container_name: currency-history
+    build: ./currency_history
+    container_name: currency_history
     networks:
       - micronet
     ports:
      - "8101:8101"
     environment:
-      - SERVICE_NAME=currency-history
+      - SERVICE_NAME=currency_history
 
 
 networks:
