@@ -25,18 +25,19 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
-      - name: Run tests (currency-report)
+      - name: Run tests (currency_report)
         run: |
-          cd currency-report
+          cd currency_report
+          pytest
+          cd ..
+
+      - name: Run tests (currency_history)
+        run: |
+          cd currency_history
           pytest
 
-      - name: Run tests (currency-history)
-        run: |
-          cd currency-history
-          pytest
+      - name: Build Docker Image (currency_report)
+        run: docker build -t currency_report ./currency_report
 
-      - name: Build Docker Image (currency-report)
-        run: docker build -t currency-report ./currency-report
-
-      - name: Build Docker Image (currency-history)
-        run: docker build -t currency-history ./currency-history
+      - name: Build Docker Image (currency_history)
+        run: docker build -t currency_history ./currency_history
