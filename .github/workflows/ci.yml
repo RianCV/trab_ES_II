@@ -11,46 +11,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Python setup
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
-          cache: "pip"
+          python-version: '3.11'
 
-      # Dependencies
-      - name: Install dependencies (root)
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install -r requirements.txt
           pip install pytest
 
-      # Test: currency_report
-      - name: Run tests for currency_report
-        working-directory: ./currency_report
-        run: |
-          export PYTHONPATH="$PYTHONPATH:$(pwd)"
-          pytest
+      - name: Run tests - currency_report
+        working-directory: currency_report
+        run: pytest
 
-      # Test: currency_history
-      - name: Run tests for currency_history
-        working-directory: ./currency_history
-        run: |
-          export PYTHONPATH="$PYTHONPATH:$(pwd)"
-          pytest
+      - name: Run tests - currency_history
+        working-directory: currency_history
+        run: pytest
 
-      # Docker Build (currency_report)
-      - name: Build Docker Image - currency_report
-        working-directory: ./currency_report
-        run: |
-          docker build -t currency_report .
+      - name: Build Docker image - currency_report
+        run: docker build -t currency_report ./currency_report
 
-      # Docker Build (currency_history)
-      - name: Build Docker Image - currency_history
-        working-directory: ./currency_history
-        run: |
-          docker build -t currency_history .
+      - name: Build Docker image - currency_history
+        run: docker build -t currency_history ./currency_history
