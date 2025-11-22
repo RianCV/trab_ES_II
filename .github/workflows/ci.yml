@@ -1,0 +1,52 @@
+name: CI
+
+
+on:
+push:
+branches: [ main, master ]
+pull_request:
+branches: [ main, master ]
+
+
+jobs:
+build-and-test:
+runs-on: ubuntu-latest
+
+
+steps:
+- uses: actions/checkout@v4
+
+
+- name: Set up Python
+uses: actions/setup-python@v4
+with:
+python-version: '3.11'
+
+
+- name: Install dependencies (currency-report)
+run: |
+python -m pip install --upgrade pip
+pip install -r currency-report/requirements.txt
+- name: Test (currency-report)
+run: |
+pytest -q currency-report/tests
+
+
+- name: Install dependencies (currency-history)
+run: |
+pip install -r currency-history/requirements.txt
+- name: Test (currency-history)
+run: |
+pytest -q currency-history/tests
+
+
+- name: Build Docker images
+run: |
+docker build -t currency-report:ci ./currency-report
+docker build -t currency-history:ci ./currency-history
+
+
+- name: Verify images
+run: |
+docker images | grep currency-report || true
+docker images | grep currency-history || true
