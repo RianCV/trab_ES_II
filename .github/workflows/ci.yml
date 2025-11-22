@@ -34,7 +34,9 @@ jobs:
         run: pytest
 
       - name: Build Docker image - currency_report
-        run: docker build -t currency_report ./currency_report
+        working-directory: currency_report
+        run: docker build -t currency_report .
 
       - name: Build Docker image - currency_history
-        run: docker build -t currency_history ./currency_history
+        working-directory: currency_history
+        run: docker build -t currency_history .
