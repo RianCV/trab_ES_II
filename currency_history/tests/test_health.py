@@ -1,4 +1,4 @@
-from currency_history import app
+from currency_history.app import app
 
 
 def test_health():
